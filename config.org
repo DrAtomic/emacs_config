@@ -1,20 +1,31 @@
 * startup
 Use-package
 #+BEGIN_SRC emacs-lisp
+  (package-initialize)
+  (require 'package)
+  (add-to-list 'package-archives
+	       '("melpa" ."https://melpa.org/packages/") t)
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
     (package-install 'use-package))
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+  (add-to-list 'default-frame-alist '(fullscreen . maximized))
 #+END_SRC
+* theme
+#+begin_src emacs-lisp
+  (use-package dracula-theme
+    :ensure t
+    :config
+    (load-theme 'dracula t))
+#+end_src
 * dashboard
 #+BEGIN_SRC emacs-lisp
-(use-package dashboard
-  :ensure t
-  :config
-    (dashboard-setup-startup-hook)
-    (setq dashboard-startup-banner 'logo)
-    (setq dashboard-center-content t)
-    (setq dashboard-items '((recents .5))))
+  (use-package dashboard
+    :ensure t
+    :config
+      (dashboard-setup-startup-hook)
+      (setq dashboard-startup-banner 'logo)
+      (setq dashboard-center-content t)
+      (setq dashboard-items '((recents .5))))
 #+END_SRC
 * tmp
 set autosave fiels to .tmp folder
@@ -242,14 +253,15 @@ its helm
     :ensure t
     :hook ((python-mode . pyvenv-mode)))
 
-  (use-package company-gambit
-    :ensure nil
-    :load-path "~/.emacs.d/company-gambit/"
-    :config
-    (defun my-scheme-mode-hook ()
-      (add-to-list 'company-backends 'company-gambit--backend))
-
-    (add-hook 'scheme-mode-hook 'my-scheme-mode-hook))
+  ;; https://github.com/DrAtomic/company-gambit.git
+  (when (file-exists-p "~/.emacs.d/company-gambit/")
+      (use-package company-gambit    
+	:ensure nil
+	:load-path "~/.emacs.d/company-gambit/"
+	:config
+	(defun my-scheme-mode-hook ()
+	  (add-to-list 'company-backends 'company-gambit--backend))
+	(add-hook 'scheme-mode-hook 'my-scheme-mode-hook)))
 #+END_SRC
 * yasnippet
 #+BEGIN_SRC emacs-lisp
@@ -371,9 +383,10 @@ this is magic to me will figure out later
   :ensure t
   :bind (("C-x g" . magit-status)))
 #+end_src
-* linumber
+* line number
 #+begin_src emacs-lisp
-(global-display-line-numbers-mode)
+  (setq display-line-numbers-type 'relative)
+  (global-display-line-numbers-mode)
 #+end_src
 * beamer
 #+begin_src emacs-lisp
@@ -385,8 +398,7 @@ this is magic to me will figure out later
 (defun mechanics ()
   (interactive)
   (run-scheme 
-    "/bin/scheme --library ~/Thirdparty/scmutils-20200810"
-  ))
+    "/bin/scheme --library ~/Thirdparty/scmutils-20200810"))
 #+end_src
 * reveal
   #+begin_src emacs-lisp
@@ -449,3 +461,4 @@ this is magic to me will figure out later
     (use-package visual-regexp
       :ensure t)  
 #+end_src
+
