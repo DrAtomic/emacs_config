@@ -29,7 +29,7 @@ Use-package
       (dashboard-setup-startup-hook)
       (setq dashboard-startup-banner 'logo)
       (setq dashboard-center-content t)
-      (setq dashboard-items '((recents 5))))
+      (setq dashboard-items '((recents . 5))))
 #+END_SRC
 * tmp
 set autosave fiels to .tmp folder
