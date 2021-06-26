@@ -15,21 +15,16 @@ emacs 27.2
 git clone https://github.com/DrAtomic/emacs_config.git
 ```
 
-### rename old emacs init.el
-```
-mv ~/.emacs.d/init.el ~/.emacs.d/old_init.el
-```
-
-This way you can keep you old init file and if you don't like my set up you can just change the name of your old init file back to init.el
-
 ### move into directory
 ```
 cd emacs_config
 ```
-### copy files into emacs.d
+
+### install script
+all this does is rename your old ~/.emacs.d/init.el to ~/.emacs.d/old\_init.el and the same with ~/.emacs.d/config.org to ~/.emacs.d/old\_config.org
+
 ```
-cp init.el ~/.emacs.d
-cp config.org ~/.emacs.d
+bash install.sh
 ```
 
 ### start emacs
