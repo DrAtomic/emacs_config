@@ -95,8 +95,9 @@ lint for emacs
 * term
 terminal for emacs
 #+BEGIN_SRC emacs-lisp
-(use-package vterm
-    :ensure t)
+  (unless (version< "27.1")
+	  (use-package vterm
+	    :ensure t))
 #+END_SRC
 * window
 ** split window
