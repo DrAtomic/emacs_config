@@ -34,3 +34,5 @@ cp config.org ~/.emacs.d
 
 ### start emacs
 start emacs and everything should be good to go. :)
+
+(there are some warnings after compilation but they can be safely ignored)

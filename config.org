@@ -1,3 +1,7 @@
+* TODO fixes
+  at some point they changed source code blocks completion from tabbing '<el' to 'C-c C-,' I would like it to be able to do both. that way emacs< 27 can have all the features of this config
+  
+  org automatically expands all bullet points on startup now for emacs > 27, i dont like
 * startup
 Use-package
 #+BEGIN_SRC emacs-lisp
@@ -25,7 +29,7 @@ Use-package
       (dashboard-setup-startup-hook)
       (setq dashboard-startup-banner 'logo)
       (setq dashboard-center-content t)
-      (setq dashboard-items '((recents .5))))
+      (setq dashboard-items '((recents 5))))
 #+END_SRC
 * tmp
 set autosave fiels to .tmp folder
