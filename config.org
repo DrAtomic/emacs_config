@@ -3,8 +3,24 @@
   
   org automatically expands all bullet points on startup now for emacs > 27, i dont like
 * startup
-Use-package
+Use-package and straight setup
 #+BEGIN_SRC emacs-lisp
+  (defvar bootstrap-version)
+  (let ((bootstrap-file
+	 (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+	(bootstrap-version 5))
+    (unless (file-exists-p bootstrap-file)
+      (with-current-buffer
+	  (url-retrieve-synchronously
+	   "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+	   'silent 'inhibit-cookies)
+	(goto-char (point-max))
+	(eval-print-last-sexp)))
+    (load bootstrap-file nil 'nomessage))
+  (unless (version< emacs-version "27")
+    (setq package-enable-at-startup nil))
+  (setq straight-use-package-by-default t)
+
   (package-initialize)
   (require 'package)
   (add-to-list 'package-archives
@@ -261,15 +277,12 @@ its helm
     (pyvenv-mode 1)
     (setenv "WORKON_HOME" "~/anaconda3/envs/"))
 
-  ;; https://github.com/DrAtomic/company-gambit.git
-  (when (file-exists-p "~/.emacs.d/company-gambit/")
-      (use-package company-gambit    
-	:ensure nil
-	:load-path "~/.emacs.d/company-gambit/"
-	:config
-	(defun my-scheme-mode-hook ()
-	  (add-to-list 'company-backends 'company-gambit--backend))
-	(add-hook 'scheme-mode-hook 'my-scheme-mode-hook)))
+  (use-package company-gambit
+    :straight (company-gambit :type git :host github :repo "DrAtomic/company-gambit")
+    :config
+    (defun my-scheme-mode-hook ()
+      (add-to-list 'company-backends 'company-gambit--backend))
+    (add-hook 'scheme-mode-hook 'my-scheme-mode-hook))
 #+END_SRC
 * yasnippet
 #+BEGIN_SRC emacs-lisp
