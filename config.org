@@ -256,7 +256,10 @@ its helm
 
   (use-package pyvenv
     :ensure t
-    :hook ((python-mode . pyvenv-mode)))
+    :hook ((python-mode . pyvenv-mode))
+    :config
+    (pyvenv-mode 1)
+    (setenv "WORKON_HOME" "~/anaconda3/envs/"))
 
   ;; https://github.com/DrAtomic/company-gambit.git
   (when (file-exists-p "~/.emacs.d/company-gambit/")
@@ -333,13 +336,7 @@ this is magic to me will figure out later
   (setq python-shell-completion-native-enable nil)
   (setq elpy-shell-use-project-root t )
   (setq elpy-rpc-virtualenv-path 'current)
-
   (setq elpy-shell-starting-directory (quote current-directory))
-  (use-package pyenv-mode
-    :ensure t)
-; set this to whichever you have
-  (setenv "WORKON_HOME" "~/.conda/envs")
-  (pyvenv-mode 1)
 #+END_SRC
 ** latex
 #+BEGIN_SRC emacs-lisp
